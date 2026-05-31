@@ -20,7 +20,7 @@ export const QUESTIONS: { id: number; text: string }[] = [
   { id: 17, text: "Came to faith in college" },
   { id: 18, text: "Has something in common with your career or field of study" },
   { id: 19, text: "Can teach you a phrase in another language" },
-  { id: 20, text: "Has fallen asleep during a sermon" },
+  { id: 20, text: "Has attended a church in another country" },
 ];
 
 export const TOTAL_QUESTIONS = QUESTIONS.length;

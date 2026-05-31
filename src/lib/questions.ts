@@ -135,9 +135,9 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 20,
-    emoji: "😴",
-    text: "Has fallen asleep during a sermon",
-    short: "Sermon snoozer",
+    emoji: "⛪",
+    text: "Has attended a church in another country",
+    short: "Church abroad",
   },
 ];
 

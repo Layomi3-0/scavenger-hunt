@@ -135,12 +135,9 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 20,
-    emoji: "✨",
-    text: "Has a name with a meaning they love",
-    short: "A name with meaning",
-    instruction: "Write their name and what it means.",
-    noteLabel: "what their name means",
-    notePlaceholder: "joy · gift from God · light…",
+    emoji: "😴",
+    text: "Has fallen asleep during a sermon",
+    short: "Sermon snoozer",
   },
 ];
 

@@ -11,12 +11,12 @@ export type Question = {
 export const QUESTIONS: Question[] = [
   {
     id: 1,
-    emoji: "🗣️",
-    text: "Speaks the same language as you, other than English",
-    short: "Another tongue",
-    instruction: "Write their name and what language you both speak.",
-    noteLabel: "the language you share",
-    notePlaceholder: "Spanish, Yoruba, French…",
+    emoji: "🎶",
+    text: "Knows a worship song in another language",
+    short: "Worship in another tongue",
+    instruction: "Write their name and the song they shared.",
+    noteLabel: "the song",
+    notePlaceholder: "Way Maker · Resucitó · Cuán Grande es Él…",
   },
   {
     id: 2,

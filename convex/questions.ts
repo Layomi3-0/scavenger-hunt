@@ -1,7 +1,7 @@
 // Server-side validation copy of the questions. Keep id values in sync with
 // src/lib/questions.ts.
 export const QUESTIONS: { id: number; text: string }[] = [
-  { id: 1, text: "Speaks the same language as you, other than English" },
+  { id: 1, text: "Knows a worship song in another language" },
   { id: 2, text: "Has visited another country on a mission trip" },
   { id: 3, text: "Has been to five Public Worship events" },
   { id: 4, text: "Became a Christian within the last year" },

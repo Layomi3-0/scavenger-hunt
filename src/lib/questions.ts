@@ -133,6 +133,15 @@ export const QUESTIONS: Question[] = [
     noteLabel: "the phrase + meaning",
     notePlaceholder: "'hola' — hello",
   },
+  {
+    id: 20,
+    emoji: "✨",
+    text: "Has a name with a meaning they love",
+    short: "A name with meaning",
+    instruction: "Write their name and what it means.",
+    noteLabel: "what their name means",
+    notePlaceholder: "joy · gift from God · light…",
+  },
 ];
 
 export const TOTAL_QUESTIONS = QUESTIONS.length;

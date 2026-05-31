@@ -75,7 +75,7 @@ export function SignIn({
         </h1>
 
         <p className="mt-6 text-ink-soft text-[15px] leading-relaxed max-w-[32ch]">
-          Nineteen prompts. Mingle, ask questions, and write down the names of
+          Twenty prompts. Mingle, ask questions, and write down the names of
           the people who fit each one. First to fill the card wins.
         </p>
 

@@ -51,11 +51,11 @@ export function SignIn({
 
   return (
     <main className="relative flex-1 flex flex-col">
-      {/* decorative doodles */}
-      <FlagDoodle className="pointer-events-none absolute left-3 top-24 w-16 text-coral opacity-80" />
-      <SparkleCluster className="pointer-events-none absolute right-4 top-36 w-14 text-coral opacity-80" />
-      <CloudDoodle className="pointer-events-none absolute right-6 bottom-24 w-24 text-coral opacity-70" />
-      <ScrollDoodle className="pointer-events-none absolute left-5 bottom-32 w-14 text-coral opacity-70" />
+      {/* decorative doodles — corners on mobile, floating positions on tablet+ */}
+      <FlagDoodle className="pointer-events-none absolute top-3 left-3 w-9 sm:top-24 sm:left-3 sm:w-16 text-coral opacity-80" />
+      <SparkleCluster className="pointer-events-none absolute top-3 right-3 w-9 sm:top-36 sm:right-4 sm:w-14 text-coral opacity-80" />
+      <ScrollDoodle className="pointer-events-none absolute bottom-3 left-3 w-9 sm:bottom-32 sm:left-5 sm:w-14 text-coral opacity-70" />
+      <CloudDoodle className="pointer-events-none absolute bottom-3 right-3 w-14 sm:bottom-24 sm:right-6 sm:w-24 text-coral opacity-70" />
 
       <div className="flex-1 flex flex-col px-6 pt-12 pb-10 relative z-10 max-w-md w-full mx-auto">
         <p className="eyebrow text-[11px] text-coral">eden community</p>

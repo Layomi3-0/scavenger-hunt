@@ -28,7 +28,7 @@ export const QUESTIONS: Question[] = [
     id: 3,
     emoji: "🛐",
     text: "Has been to five Public Worship events",
-    short: "Five Worship nights",
+    short: "Public Worship Stan",
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ export const QUESTIONS: Question[] = [
     id: 6,
     emoji: "🌊",
     text: "Was baptized in a lake, river, or ocean",
-    short: "Baptized in water",
+    short: "Baptized in nature",
   },
   {
     id: 7,

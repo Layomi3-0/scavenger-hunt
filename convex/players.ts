@@ -71,6 +71,7 @@ export const me = query({
       finds: finds.map((f) => ({
         questionId: f.questionId,
         targetDisplayName: f.targetDisplayName,
+        note: f.note,
         createdAt: f._creationTime,
       })),
     };

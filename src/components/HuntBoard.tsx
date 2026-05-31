@@ -31,8 +31,10 @@ export function HuntBoard({
   const [pending, setPending] = useState(false);
 
   const findsByQuestion = useMemo(() => {
-    const map = new Map<number, string>();
-    me?.finds.forEach((f) => map.set(f.questionId, f.targetDisplayName));
+    const map = new Map<number, { name: string; note?: string }>();
+    me?.finds.forEach((f) =>
+      map.set(f.questionId, { name: f.targetDisplayName, note: f.note }),
+    );
     return map;
   }, [me]);
 
@@ -50,9 +52,10 @@ export function HuntBoard({
 
   const found = me.foundCount;
   const total = me.totalQuestions;
+  const halfway = Math.ceil(total / 2);
 
   function maybeFireMilestone(newCount: number) {
-    if (newCount === 12 && !seenMilestones.has("halfway")) {
+    if (newCount >= halfway && newCount < total && !seenMilestones.has("halfway")) {
       setMilestone("halfway");
       setSeenMilestones((s) => new Set(s).add("halfway"));
     }
@@ -62,7 +65,7 @@ export function HuntBoard({
     }
   }
 
-  async function handleSubmit(name: string) {
+  async function handleSubmit(name: string, note: string) {
     if (!sheet) return null;
     setPending(true);
     try {
@@ -70,6 +73,7 @@ export function HuntBoard({
         playerId,
         questionId: sheet.questionId,
         targetName: name,
+        note: note.trim() ? note : undefined,
       });
       setSheet(null);
       maybeFireMilestone(res.foundCount);
@@ -130,26 +134,36 @@ export function HuntBoard({
 
       <section className="relative pb-24">
         <div className="max-w-[560px] mx-auto px-3.5 mt-5 grid grid-cols-2 gap-2.5">
-          {QUESTIONS.map((q, i) => (
-            <HuntCard
-              key={q.id}
-              id={q.id}
-              text={q.text}
-              short={q.short}
-              completed={findsByQuestion.has(q.id)}
-              targetName={findsByQuestion.get(q.id)}
-              index={i}
-              onTap={() =>
-                setSheet({
-                  questionId: q.id,
-                  text: q.text,
-                  short: q.short,
-                  alreadyCompleted: findsByQuestion.has(q.id),
-                  targetName: findsByQuestion.get(q.id),
-                })
-              }
-            />
-          ))}
+          {QUESTIONS.map((q, i) => {
+            const completedFind = findsByQuestion.get(q.id);
+            return (
+              <HuntCard
+                key={q.id}
+                id={q.id}
+                emoji={q.emoji}
+                text={q.text}
+                short={q.short}
+                completed={!!completedFind}
+                targetName={completedFind?.name}
+                targetNote={completedFind?.note}
+                index={i}
+                onTap={() =>
+                  setSheet({
+                    questionId: q.id,
+                    emoji: q.emoji,
+                    text: q.text,
+                    short: q.short,
+                    instruction: q.instruction,
+                    noteLabel: q.noteLabel,
+                    notePlaceholder: q.notePlaceholder,
+                    alreadyCompleted: !!completedFind,
+                    targetName: completedFind?.name,
+                    targetNote: completedFind?.note,
+                  })
+                }
+              />
+            );
+          })}
         </div>
 
         <div className="mt-10 max-w-[560px] mx-auto px-5">
@@ -203,6 +217,8 @@ export function HuntBoard({
       />
       <MilestoneSeal
         milestone={milestone}
+        total={total}
+        halfway={halfway}
         onDismiss={() => setMilestone(null)}
         duration={me.completionDurationMs}
         playerName={me.displayName.split(" ")[0]}

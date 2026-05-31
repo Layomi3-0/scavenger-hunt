@@ -18,6 +18,7 @@ export default defineSchema({
     questionId: v.number(),
     targetPlayerId: v.id("players"),
     targetDisplayName: v.string(),
+    note: v.optional(v.string()), // optional extra info for prompts that ask for it
   })
     .index("by_player", ["playerId"])
     .index("by_player_target", ["playerId", "targetPlayerId"])

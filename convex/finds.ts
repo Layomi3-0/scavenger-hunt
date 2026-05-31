@@ -7,8 +7,9 @@ export const submit = mutation({
     playerId: v.id("players"),
     questionId: v.number(),
     targetName: v.string(),
+    note: v.optional(v.string()),
   },
-  handler: async (ctx, { playerId, questionId, targetName }) => {
+  handler: async (ctx, { playerId, questionId, targetName, note }) => {
     const player = await ctx.db.get(playerId);
     if (!player) {
       throw new ConvexError("We can't find your player record. Try refreshing.");
@@ -61,11 +62,13 @@ export const submit = mutation({
       );
     }
 
+    const trimmedNote = note?.trim();
     await ctx.db.insert("finds", {
       playerId,
       questionId,
       targetPlayerId: target._id,
       targetDisplayName: target.displayName,
+      note: trimmedNote && trimmedNote.length > 0 ? trimmedNote.slice(0, 140) : undefined,
     });
 
     const newCount = (player.foundCount ?? 0) + 1;

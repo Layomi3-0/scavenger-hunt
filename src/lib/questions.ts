@@ -1,123 +1,137 @@
-export const QUESTIONS: { id: number; text: string; short: string }[] = [
+export type Question = {
+  id: number;
+  emoji: string;
+  text: string;
+  short: string;
+  instruction?: string;
+  noteLabel?: string;
+  notePlaceholder?: string;
+};
+
+export const QUESTIONS: Question[] = [
   {
     id: 1,
+    emoji: "🗣️",
     text: "Speaks the same language as you, other than English",
     short: "Another tongue",
+    instruction: "Write their name and what language you both speak.",
+    noteLabel: "the language you share",
+    notePlaceholder: "Spanish, Yoruba, French…",
   },
   {
     id: 2,
+    emoji: "✈️",
     text: "Has visited another country on a mission trip",
     short: "Mission abroad",
   },
   {
     id: 3,
-    text: "Has been to every single Public Worship event",
-    short: "Every Worship night",
+    emoji: "🛐",
+    text: "Has been to five Public Worship events",
+    short: "Five Worship nights",
   },
   {
     id: 4,
+    emoji: "✝️",
     text: "Became a Christian within the last year",
     short: "New in the faith",
   },
   {
     id: 5,
+    emoji: "📖",
     text: "Has read through the entire Bible",
     short: "Cover to cover",
   },
   {
     id: 6,
-    text: "Is currently reading a Christian book",
-    short: "Currently reading",
-  },
-  {
-    id: 7,
-    text: "Has the same favorite worship song as you",
-    short: "Same anthem",
-  },
-  {
-    id: 8,
+    emoji: "🌊",
     text: "Was baptized in a lake, river, or ocean",
     short: "Baptized in water",
   },
   {
-    id: 9,
+    id: 7,
+    emoji: "🙏🏾",
     text: "Has a testimony of answered prayer from this year",
     short: "Answered prayer",
   },
   {
-    id: 10,
+    id: 8,
+    emoji: "🎉",
     text: "Has the same birthday as you",
     short: "Same birthday",
   },
   {
-    id: 11,
+    id: 9,
+    emoji: "✋🏻",
     text: "Is left-handed",
     short: "Left-handed",
   },
   {
-    id: 12,
+    id: 10,
+    emoji: "🌆",
     text: "Has lived in at least three different cities",
     short: "Three cities or more",
   },
   {
-    id: 13,
+    id: 11,
+    emoji: "🎸",
     text: "Plays a musical instrument",
     short: "Plays an instrument",
   },
   {
+    id: 12,
+    emoji: "🏃‍♂️",
+    text: "Has run a marathon",
+    short: "Ran a marathon",
+  },
+  {
+    id: 13,
+    emoji: "🙏🏾",
+    text: "Has a prayer request they're comfortable sharing",
+    short: "A prayer to share",
+    instruction: "Take a moment to pray with them after they share.",
+  },
+  {
     id: 14,
-    text: "Can teach you a phrase in another language",
-    short: "Teach a phrase",
+    emoji: "🏓",
+    text: "Shares a hobby with you",
+    short: "Shared hobby",
   },
   {
     id: 15,
-    text: "Has run a race or marathon",
-    short: "Ran a race",
+    emoji: "🎧",
+    text: "Can recommend a sermon, podcast, or devotional",
+    short: "A recommendation",
   },
   {
     id: 16,
-    text: "Is wearing your favorite color",
-    short: "Wearing your color",
+    emoji: "🧠",
+    text: "Can quote a Bible verse from memory",
+    short: "A verse by heart",
+    instruction: "Write their name and the Bible verse they quoted.",
+    noteLabel: "the verse they quoted",
+    notePlaceholder: "John 3:16…",
   },
   {
     id: 17,
-    text: "Has a prayer request they're comfortable sharing",
-    short: "A prayer to share",
+    emoji: "🎓",
+    text: "Came to faith in college",
+    short: "Faith in college",
   },
   {
     id: 18,
+    emoji: "📚",
     text: "Has something in common with your career or field of study",
     short: "Same field",
   },
   {
     id: 19,
-    text: "Shares a hobby with you",
-    short: "Shared hobby",
-  },
-  {
-    id: 20,
-    text: "Can recommend a sermon, podcast, or devotional",
-    short: "A recommendation",
-  },
-  {
-    id: 21,
-    text: "Has been a Christian longer than you've been alive",
-    short: "Longer than you've lived",
-  },
-  {
-    id: 22,
-    text: "Came to faith in college",
-    short: "Faith in college",
-  },
-  {
-    id: 23,
-    text: "Can quote a Bible verse from memory",
-    short: "A verse by heart",
-  },
-  {
-    id: 24,
-    text: "Has attended church in another country",
-    short: "Church abroad",
+    emoji: "🌎",
+    text: "Can teach you a phrase in another language",
+    short: "Teach a phrase",
+    instruction: "Write the phrase they taught you and what it means.",
+    noteLabel: "the phrase + meaning",
+    notePlaceholder: "'hola' — hello",
   },
 ];
 

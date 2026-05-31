@@ -4,18 +4,22 @@ import { Stamp } from "./Stamp";
 
 export function HuntCard({
   id,
+  emoji,
   text,
   short,
   completed,
   targetName,
+  targetNote,
   onTap,
   index,
 }: {
   id: number;
+  emoji: string;
   text: string;
   short: string;
   completed: boolean;
   targetName?: string;
+  targetNote?: string;
   onTap: () => void;
   index: number;
 }) {
@@ -44,11 +48,11 @@ export function HuntCard({
         </span>
         <span
           aria-hidden
-          className="block w-2 h-2 rounded-full"
-          style={{
-            background: completed ? "var(--coral)" : "var(--coral-soft)",
-          }}
-        />
+          className="text-[18px] leading-none"
+          style={{ filter: completed ? "none" : "saturate(0.9)" }}
+        >
+          {emoji}
+        </span>
       </div>
 
       <div className="px-4 pt-3 pb-4 min-h-[150px] flex flex-col">
@@ -64,11 +68,18 @@ export function HuntCard({
 
         <div className="mt-auto pt-3">
           {completed && targetName ? (
-            <div className="flex items-baseline gap-1.5">
-              <span className="eyebrow text-[9.5px] text-coral">found</span>
-              <span className="font-display text-[14px] text-coral-deep">
-                {targetName}
-              </span>
+            <div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="eyebrow text-[9.5px] text-coral">found</span>
+                <span className="font-display text-[14px] text-coral-deep">
+                  {targetName}
+                </span>
+              </div>
+              {targetNote && (
+                <p className="mt-1 text-[11px] text-ink-mute italic leading-snug line-clamp-2">
+                  {targetNote}
+                </p>
+              )}
             </div>
           ) : (
             <span className="eyebrow text-[10px] text-ink-mute/70">

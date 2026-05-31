@@ -7,11 +7,15 @@ export type Milestone = "halfway" | "complete" | null;
 
 export function MilestoneSeal({
   milestone,
+  total,
+  halfway,
   onDismiss,
   duration,
   playerName,
 }: {
   milestone: Milestone;
+  total: number;
+  halfway: number;
   onDismiss: () => void;
   duration?: number;
   playerName?: string;
@@ -23,6 +27,8 @@ export function MilestoneSeal({
       return () => clearTimeout(t);
     }
   }, [milestone, onDismiss]);
+
+  const bigNumber = milestone === "halfway" ? halfway : total;
 
   return (
     <AnimatePresence>
@@ -95,9 +101,11 @@ export function MilestoneSeal({
                   className="font-display text-[56px] leading-none mt-1"
                   style={{ letterSpacing: "-0.02em" }}
                 >
-                  {milestone === "halfway" ? "12" : "24"}
+                  {bigNumber}
                 </p>
-                <p className="eyebrow text-[10.5px] opacity-85 mt-1">of 24</p>
+                <p className="eyebrow text-[10.5px] opacity-85 mt-1">
+                  of {total}
+                </p>
               </div>
             </div>
 
@@ -107,7 +115,7 @@ export function MilestoneSeal({
                   You're halfway across the room.
                 </h2>
                 <p className="text-blush/80 mt-2 italic text-[16px]">
-                  Twelve more souls to meet.
+                  {total - bigNumber} more {total - bigNumber === 1 ? "soul" : "souls"} to meet.
                 </p>
               </>
             ) : (

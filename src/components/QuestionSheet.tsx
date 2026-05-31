@@ -5,10 +5,15 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export type SheetState = {
   questionId: number;
+  emoji: string;
   text: string;
   short: string;
+  instruction?: string;
+  noteLabel?: string;
+  notePlaceholder?: string;
   alreadyCompleted: boolean;
   targetName?: string;
+  targetNote?: string;
 };
 
 export function QuestionSheet({
@@ -20,17 +25,19 @@ export function QuestionSheet({
 }: {
   state: SheetState | null;
   onClose: () => void;
-  onSubmit: (name: string) => Promise<string | null>;
+  onSubmit: (name: string, note: string) => Promise<string | null>;
   onUndo: () => Promise<void>;
   pending: boolean;
 }) {
-  const [value, setValue] = useState("");
+  const [name, setName] = useState("");
+  const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (state) {
-      setValue("");
+      setName("");
+      setNote("");
       setError(null);
       const t = setTimeout(() => inputRef.current?.focus(), 240);
       return () => clearTimeout(t);
@@ -40,7 +47,7 @@ export function QuestionSheet({
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    const err = await onSubmit(value);
+    const err = await onSubmit(name, note);
     if (err) setError(err);
   }
 
@@ -79,7 +86,10 @@ export function QuestionSheet({
 
             <div className="px-6 pt-5 pb-7">
               <div className="flex items-center justify-between mb-3">
-                <span className="eyebrow text-[10.5px] text-coral">
+                <span className="eyebrow text-[10.5px] text-coral inline-flex items-center gap-1.5">
+                  <span className="text-[16px] leading-none" aria-hidden>
+                    {state.emoji}
+                  </span>
                   № {String(state.questionId).padStart(2, "0")}
                 </span>
                 <button
@@ -102,6 +112,12 @@ export function QuestionSheet({
                 {state.text.replace(/^Find someone who /i, "")}
               </p>
 
+              {state.instruction && (
+                <p className="mt-3 text-[13px] text-coral-deep italic leading-snug">
+                  {state.instruction}
+                </p>
+              )}
+
               <div className="rule my-5" />
 
               {state.alreadyCompleted ? (
@@ -113,6 +129,14 @@ export function QuestionSheet({
                     </span>
                     .
                   </p>
+                  {state.targetNote && (
+                    <p className="mt-1.5 text-[13px] text-ink-mute leading-snug">
+                      <span className="eyebrow text-[10px] text-coral mr-1.5">
+                        note
+                      </span>
+                      {state.targetNote}
+                    </p>
+                  )}
                   <div className="mt-5 flex gap-3">
                     <button
                       onClick={onClose}
@@ -137,17 +161,39 @@ export function QuestionSheet({
                   </label>
                   <input
                     ref={inputRef}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     autoCapitalize="words"
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck={false}
-                    enterKeyHint="done"
+                    enterKeyHint={state.noteLabel ? "next" : "done"}
                     inputMode="text"
                     placeholder="type it out…"
                     className="w-full bg-transparent border-0 border-b-2 border-ink/25 focus:border-coral font-display text-[24px] text-ink py-2 outline-none placeholder:text-ink/25 placeholder:font-display"
                   />
+
+                  {state.noteLabel && (
+                    <div className="mt-5">
+                      <label className="eyebrow text-[10.5px] text-coral block mb-2">
+                        {state.noteLabel}
+                      </label>
+                      <input
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                        autoCapitalize="sentences"
+                        autoComplete="off"
+                        autoCorrect="on"
+                        spellCheck={true}
+                        enterKeyHint="done"
+                        inputMode="text"
+                        maxLength={140}
+                        placeholder={state.notePlaceholder ?? ""}
+                        className="w-full bg-transparent border-0 border-b-2 border-ink/25 focus:border-coral font-display text-[20px] text-ink py-2 outline-none placeholder:text-ink/25 placeholder:font-display"
+                      />
+                    </div>
+                  )}
+
                   {error && (
                     <p className="mt-3 text-[13.5px] text-coral-deep leading-snug">
                       {error}
@@ -155,7 +201,7 @@ export function QuestionSheet({
                   )}
                   <button
                     type="submit"
-                    disabled={pending || value.trim().length < 2}
+                    disabled={pending || name.trim().length < 2}
                     className="mt-6 w-full h-12 rounded-full bg-coral text-white font-semibold tracking-wide disabled:opacity-40 transition-opacity"
                   >
                     {pending ? "Stamping…" : "Mark as found"}
